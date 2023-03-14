@@ -28,6 +28,10 @@ const inputSchema = new SimpleSchema({
     type: String,
     optional: true
   },
+  currentStatus: {
+    type: String,
+    optional: true
+  },
   name: {
     type: String,
     optional: true
@@ -71,6 +75,7 @@ export default async function updateAccount(context, input) {
     firstName,
     language,
     lastName,
+    currentStatus,
     name,
     note,
     picture,
@@ -108,7 +113,10 @@ export default async function updateAccount(context, input) {
     updates["profile.lastName"] = lastName;
     updatedFields.push("lastName");
   }
-
+  if (typeof currentStatus === "string" || currentStatus === null) {
+    updates["profile.currentStatus"] = currentStatus;
+    updatedFields.push("currentStatus");
+  }
   if (typeof name === "string" || name === null) {
     // For some reason we store name in two places. Should fix eventually.
     updates.name = name;

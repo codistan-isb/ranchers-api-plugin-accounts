@@ -88,6 +88,11 @@ export const AccountProfileAddress = new SimpleSchema({
     label: "Last name",
     optional: true
   },
+  "currentStatus": {
+    type: String,
+    label: "Current Status",
+    optional: true
+  },
   "address1": {
     label: "Address 1",
     type: String
@@ -207,6 +212,10 @@ export const Profile = new SimpleSchema({
     optional: true
   },
   "lastName": {
+    type: String,
+    optional: true
+  },
+  "currentStatus": {
     type: String,
     optional: true
   },
