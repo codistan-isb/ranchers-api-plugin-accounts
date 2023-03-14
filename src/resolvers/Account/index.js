@@ -24,5 +24,6 @@ export default {
     return (primaryRecord && primaryRecord.address) || "";
   },
   userRole: (account) => account.role || account.role,
+  currentStatus: (account) => account.currentStatus || account.currentStatus,
   username: (account) => account.profile.username || account.username
 };
