@@ -12,7 +12,7 @@ import optimizeIdOnly from "@reactioncommerce/api-utils/graphql/optimizeIdOnly.j
  * @returns {Object} user account object
  */
 export default async function viewer(_, __, context, info) {
-  if (!context.accountId) return null;
+  if (!context.accountId)  throw new Error("Unauthorized access. Please login first");
 
   return optimizeIdOnly(context.accountId, info, context.queries.userAccount)(context, context.accountId);
 }
