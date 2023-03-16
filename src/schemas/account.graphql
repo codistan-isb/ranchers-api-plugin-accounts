@@ -221,7 +221,7 @@ type Account implements Node {
 
   "The first name of the person this account represents, if known"
   firstName: String
-  userRole: [String]
+  userRole: String
   "The preferred language used by this account"
   language: String
 
