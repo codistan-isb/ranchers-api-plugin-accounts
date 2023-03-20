@@ -19,6 +19,11 @@ enum AddressType {
   shipping
 }
 
+enum UserRoleValue {
+  admin
+  dispatcher
+  rider
+}
 "Defines a new Address and the account to which it should be added"
 input AddAccountAddressBookEntryInput {
   "The account ID"
@@ -221,7 +226,7 @@ type Account implements Node {
 
   "The first name of the person this account represents, if known"
   firstName: String
-  userRole: String
+  userRole: UserRoleValue
   "The preferred language used by this account"
   language: String
 
