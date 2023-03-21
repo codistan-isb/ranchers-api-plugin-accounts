@@ -61,6 +61,7 @@ input CreateAccountInput {
 
   "An optional string identifying the mutation call, which will be returned in the response payload"
   clientMutationId: String
+  UserRole: String
 }
 
 "Describes changes that should be applied to one of the addresses for an account"
@@ -555,4 +556,5 @@ extend type Query {
 
   "Returns the account for the authenticated user"
   viewer: Account
+  getallUsers: [Account]
 }
