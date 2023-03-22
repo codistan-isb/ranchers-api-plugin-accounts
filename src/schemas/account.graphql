@@ -556,5 +556,5 @@ extend type Query {
 
   "Returns the account for the authenticated user"
   viewer: Account
-  getallUsers: [Account]
+  # getallUsers: [Account]
 }
