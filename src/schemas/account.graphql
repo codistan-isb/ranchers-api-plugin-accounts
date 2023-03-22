@@ -61,7 +61,7 @@ input CreateAccountInput {
 
   "An optional string identifying the mutation call, which will be returned in the response payload"
   clientMutationId: String
-  UserRole: String
+  UserRole: UserRoleValue
 }
 
 "Describes changes that should be applied to one of the addresses for an account"
@@ -135,7 +135,7 @@ input UpdateAccountInput {
 
   "URL of picture to display on profile"
   picture: String
-
+  UserRole: UserRoleValue
   "Username"
   username: String
 }
@@ -227,7 +227,7 @@ type Account implements Node {
 
   "The first name of the person this account represents, if known"
   firstName: String
-  userRole: UserRoleValue
+  UserRole: UserRoleValue
   "The preferred language used by this account"
   language: String
 
@@ -302,6 +302,7 @@ type BasicAccount implements Node {
 
   "List of shop Ids"
   adminUIShopIds: [String]
+  UserRole: UserRoleValue
 }
 
 type Profile {

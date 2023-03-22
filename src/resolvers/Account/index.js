@@ -23,7 +23,7 @@ export default {
     const primaryRecord = (account.emails || []).find((record) => record.provides === "default");
     return (primaryRecord && primaryRecord.address) || "";
   },
-  userRole: (account) => account.role || account.UserRole,
+  UserRole: (account) => account.role || account.UserRole,
   currentStatus: (account) => account.currentStatus,
   username: (account) => account.profile.username || account.username
 };
