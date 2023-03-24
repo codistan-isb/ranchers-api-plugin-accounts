@@ -495,7 +495,7 @@ extend type Mutation {
     "Mutation input"
     input: UpdateGroupsForAccountsInput!
   ): UpdateGroupsForAccountsPayload
-  updateUserRole(UserRole: String!, userId: String!): Boolean
+  updateUserRole(UserRole: UserRoleValue!, userId: String!): Boolean
 }
 
 extend type Query {
