@@ -18,7 +18,6 @@ import updateAccountGroup from "./updateAccountGroup.js";
 import updateAdminUIAccess from "./updateAdminUIAccess.js";
 import updateGroupsForAccounts from "./updateGroupsForAccounts.js";
 import updateUserRole from "./updateUserRole.js";
-import updateAccountAdmin from "./updateAccountAdmin.js";
 export default {
   addAccountAddressBookEntry,
   addAccountEmailRecord,
@@ -40,5 +39,5 @@ export default {
   updateAdminUIAccess,
   updateGroupsForAccounts,
   updateUserRole,
-  updateAccountAdmin
+
 };
