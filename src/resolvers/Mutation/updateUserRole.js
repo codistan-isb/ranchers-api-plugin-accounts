@@ -1,6 +1,7 @@
 export default async function updateUserRole(parent, args, context, info) {
     console.log(args)
-    console.log(context.user.UserRole)
+    // console.log(context.user.UserRole)
+    // console.log(context.collections)
     if (
         context.user === undefined ||
         context.user === null ||
@@ -13,15 +14,22 @@ export default async function updateUserRole(parent, args, context, info) {
     }
     else {
         try {
-            const { users } = context.collections;
+            const { users, Accounts } = context.collections;
             const { UserRole, userId } = args
+            // console.log(userId)
             const lowercaseUserRole = UserRole.toLowerCase();
-            const updateOneresult = await users.updateOne(
+            const updateOneresult = await users.findOneAndUpdate(
                 { _id: userId },
                 { $set: { UserRole: lowercaseUserRole } }
             );
-            console.log(updateOneresult.modifiedCount)
-            if (updateOneresult.modifiedCount === 1) {
+            console.log("update One result ", updateOneresult.ok)
+
+            const updateAccountsresult = await Accounts.findOneAndUpdate(
+                { _id: userId },
+                { $set: { UserRole: lowercaseUserRole } }
+            );
+            console.log("update Accounts result ", updateAccountsresult.ok)
+            if (updateOneresult.ok === 1 && updateAccountsresult.ok === 1) {
                 // const updatedUser = await users.findOne({ _id: userId });
                 // console.log(updatedUser)
                 return true;
