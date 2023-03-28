@@ -43,7 +43,7 @@ export default async function getallUsers(_, args, context, info) {
     // const UserPermissionResp = canCreateUser(context.user.userRole.toLowerCase())
     // console.log(UserPermissionResp)
     if (CurrentUserRole === "admin") {
-        const queryData = await Accounts.find({ UserRole: { $ne: "customer" } }).toArray();
+        const queryData = await Accounts.find({ UserRole: { $ne: "customer" } }).sort({ createdAt: 1 }).toArray();
         console.log(queryData);
         return queryData
     }
