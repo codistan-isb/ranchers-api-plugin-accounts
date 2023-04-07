@@ -216,6 +216,9 @@ type Account implements Node {
   "Bio to display on profile"
   bio: String
 
+  "branch Info Displayed"
+  branchInfo: Branch
+
   "The date and time at which this account was created"
   createdAt: DateTime!
 
@@ -263,6 +266,8 @@ type Account implements Node {
 
   "Username"
   username: String
+
+  phone: String
 }
 
 "Represents a single user partial account"
@@ -281,7 +286,7 @@ type BasicAccount implements Node {
 
   "The full name of the person this account represents, if known"
   name: String
-
+  phone: String
   "List of shipping/billing addresses"
   profile: [Profile]
 
@@ -558,5 +563,8 @@ extend type Query {
 
   "Returns the account for the authenticated user"
   viewer: Account
+  "Returns the account of Users for the authenticated user"
   getallUsers: [Account]
+  "Returns the account of Riders for the authenticated user"
+  getAllRiders(branches: [String]): [Account]
 }

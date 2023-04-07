@@ -42,6 +42,10 @@ const Metafield = new SimpleSchema({
   }
 });
 
+
+
+
+
 const withoutCodeCountries = ["AO", "AG", "AW", "BS", "BZ", "BJ", "BW",
   "BF", "BI", "CM", "CF", "KM", "CG", "CD", "CK", "CI", "DJ",
   "DM", "GQ", "ER", "FJ", "TF", "GM", "GH", "GD", "GN", "GY",
@@ -118,7 +122,7 @@ export const AccountProfileAddress = new SimpleSchema({
   },
   "phone": {
     type: String,
-    label: "Phone"
+    label: "Phone",
   },
   "region": {
     label: "State/Province/Region",
@@ -171,7 +175,7 @@ export const AccountProfileAddress = new SimpleSchema({
   },
   "metafields.$": {
     type: Metafield
-  }
+  },
 });
 
 /**
@@ -216,6 +220,7 @@ export const Profile = new SimpleSchema({
     type: String,
     optional: true
   },
+
   "lastName": {
     type: String,
     optional: true
@@ -227,6 +232,10 @@ export const Profile = new SimpleSchema({
   "UserRole": {
     type: String,
     optional: true
+  },
+  "phone": {
+    type: String,
+    label: "Phone",
   },
   "invited": {
     type: Boolean,
@@ -385,6 +394,10 @@ export const Account = new SimpleSchema({
   "updatedAt": {
     type: Date,
     optional: true
+  },
+  "phone": {
+    type: String,
+    label: "Phone"
   }
 });
 

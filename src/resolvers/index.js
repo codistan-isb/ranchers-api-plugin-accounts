@@ -6,7 +6,6 @@ import Invitation from "./Invitation/index.js";
 import Mutation from "./Mutation/index.js";
 import Query from "./Query/index.js";
 import Shop from "./Shop/index.js";
-
 /**
  * Account-related GraphQL resolvers
  * @namespace Accounts/GraphQL

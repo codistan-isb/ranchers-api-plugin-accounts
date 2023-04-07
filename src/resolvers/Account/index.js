@@ -4,7 +4,7 @@ import { encodeAccountOpaqueId } from "../../xforms/id.js";
 import addressBook from "./addressBook.js";
 import adminUIShops from "./adminUIShops.js";
 import groups from "./groups.js";
-
+import branchInfo from "./branchInfo.js";
 export default {
   _id: (account) => encodeAccountOpaqueId(account._id),
   addressBook,
@@ -25,5 +25,7 @@ export default {
   },
   UserRole: (account) => account.role || account.UserRole,
   currentStatus: (account) => account.currentStatus,
-  username: (account) => account.profile.username || account.username
+  username: (account) => account.profile.username || account.username,
+  phone: (account) => account.profile.phone,
+  branchInfo,
 };
