@@ -24,12 +24,14 @@ export default async function getAllRiders(_, args, context, info) {
     ) {
         throw new Error("Unauthorized access. Please login first");
     }
+    console.log(args)
     let { branches } = args
     const { id } = context.user
     const { Accounts } = context.collections;
     const CurrentUserRole = context.user.UserRole;
     const CurrentUserBranch = context.user.branches;
     let branchIds;
+    console.log("Current User : ", context.user)
     if (branches) {
         branchIds = Array.isArray(branches) ? branches : [branches];
     } else {
@@ -42,6 +44,7 @@ export default async function getAllRiders(_, args, context, info) {
             branches: { $in: branchIds },
             currentStatus: "online",
         }).toArray();
+        console.log(RiderAccounts)
         if (RiderAccounts.length === 0) {
             throw new Error("No online rider found");
         }
