@@ -8,9 +8,9 @@ export default async function branchInfo(parent, args, context, info) {
 
     // const branchDataResponse = await BranchData.find({ _id: ObjectID.ObjectId(BranchID) }).toArray();
     console.log("Branch Data : ", branchDataResponse)
-    // if (!branchDataResponse) {
-    //     throw new Error('Branch not found');
-    // }
+    if (!branchDataResponse) {
+        throw new Error('Branch not found');
+    }
 
     return branchDataResponse
     // return {
