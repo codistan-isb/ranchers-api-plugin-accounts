@@ -1,5 +1,5 @@
 import optimizeIdOnly from "@reactioncommerce/api-utils/graphql/optimizeIdOnly.js";
-
+import ReactionError from "@reactioncommerce/reaction-error";
 /**
  * @name Query/viewer
  * @method
@@ -12,7 +12,7 @@ import optimizeIdOnly from "@reactioncommerce/api-utils/graphql/optimizeIdOnly.j
  * @returns {Object} user account object
  */
 export default async function viewer(_, __, context, info) {
-  if (!context.accountId) throw new Error("Unauthorized access. Please login first");
+  if (!context.accountId) throw new ReactionError("Access-denied", "Please Login First");
   // console.log(context.queries.userAccount)
   // console.log()
   const Data_Viewer = await optimizeIdOnly(context.accountId, info, context.queries.userAccount)(context, context.accountId)

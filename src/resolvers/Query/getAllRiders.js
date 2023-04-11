@@ -2,6 +2,7 @@ import getPaginatedResponse from "@reactioncommerce/api-utils/graphql/getPaginat
 import wasFieldRequested from "@reactioncommerce/api-utils/graphql/wasFieldRequested.js";
 import { canCreateUser } from "../../util/canCreateUser.js";
 import { decodeGroupOpaqueId } from "../../xforms/id.js";
+import ReactionError from "@reactioncommerce/reaction-error";
 
 /**
  * @name Query/accounts
@@ -22,7 +23,7 @@ export default async function getAllRiders(_, args, context, info) {
         context.user === null ||
         context.user === ""
     ) {
-        throw new Error("Unauthorized access. Please login first");
+        throw new ReactionError("Access-denied", "Please Login First");
     }
     console.log(args)
     let { branches } = args
@@ -40,17 +41,17 @@ export default async function getAllRiders(_, args, context, info) {
     }
     console.log("branchIds: ", branchIds)
     // if (CurrentUserRole != 'rider') {
-        // if (CurrentUserRole === "dispatcher" || CurrentUserRole === "admin") {
-        const RiderAccounts = await Accounts.find({
-            UserRole: "rider",
-            branches: { $in: branchIds },
-            currentStatus: "online",
-        }).toArray();
-        console.log(RiderAccounts)
-        if (RiderAccounts.length === 0) {
-            throw new Error("No online rider found");
-        }
-        return RiderAccounts
+    // if (CurrentUserRole === "dispatcher" || CurrentUserRole === "admin") {
+    const RiderAccounts = await Accounts.find({
+        UserRole: "rider",
+        branches: { $in: branchIds },
+        currentStatus: "online",
+    }).toArray();
+    console.log(RiderAccounts)
+    if (RiderAccounts.length === 0) {
+        throw new ReactionError("User Not Found", "No online rider found");
+    }
+    return RiderAccounts
     // } else {
     //     throw new Error("Unauthorized")
     // }

@@ -2,7 +2,7 @@ import getPaginatedResponse from "@reactioncommerce/api-utils/graphql/getPaginat
 import wasFieldRequested from "@reactioncommerce/api-utils/graphql/wasFieldRequested.js";
 import { canCreateUser } from "../../util/canCreateUser.js";
 import { decodeGroupOpaqueId } from "../../xforms/id.js";
-
+import ReactionError from "@reactioncommerce/reaction-error";
 /**
  * @name Query/accounts
  * @method
@@ -25,7 +25,7 @@ export default async function getallUsers(_, args, context, info) {
         context.user === null ||
         context.user === ""
     ) {
-        throw new Error("Unauthorized access. Please login first");
+        throw new ReactionError("Authentication Error", "Login First");
     }
     console.log(context.user)
     const { Accounts } = context.collections;
@@ -48,7 +48,7 @@ export default async function getallUsers(_, args, context, info) {
         return queryData
     }
     else {
-        throw new Error("Unauthorized");
+        throw new ReactionError("Authentication Error", "Login First");
     }
 
     // const { groupIds: opaqueGroupIds, notInAnyGroups, ...connectionArgs } = args;
