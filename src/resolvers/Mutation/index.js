@@ -18,6 +18,9 @@ import updateAccountGroup from "./updateAccountGroup.js";
 import updateAdminUIAccess from "./updateAdminUIAccess.js";
 import updateGroupsForAccounts from "./updateGroupsForAccounts.js";
 import updateUserRole from "./updateUserRole.js";
+import sendResetPasswordOTP from "../../util/sendResetPasswordOTP.js";
+import sendContactForm from "./sendContactForm.js";
+import updatePasswordWithOTP from "./updatePasswordWithOTP.js";
 export default {
   addAccountAddressBookEntry,
   addAccountEmailRecord,
@@ -39,5 +42,17 @@ export default {
   updateAdminUIAccess,
   updateGroupsForAccounts,
   updateUserRole,
-
+  async ResetPasswordWithOTP(_, { email }, context) {
+    console.log(email)
+    const { id } = context.user
+    const data = await sendResetPasswordOTP(context, email, id);
+    console.log("Data: ", data)
+    if (data) {
+      return true
+    } else {
+      return false
+    }
+  },
+  sendContactForm,
+  updatePasswordWithOTP
 };

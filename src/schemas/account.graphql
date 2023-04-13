@@ -501,6 +501,16 @@ extend type Mutation {
     input: UpdateGroupsForAccountsInput!
   ): UpdateGroupsForAccountsPayload
   updateUserRole(UserRole: UserRoleValue!, userId: String!): Boolean
+
+  ResetPasswordWithOTP(email: String!): Boolean
+  updatePasswordWithOTP(otp: String!, newPassword: String!): Boolean
+
+  sendContactForm(
+    name: String!
+    email: String!
+    phoneNumber: String
+    message: String!
+  ): Boolean!
 }
 
 extend type Query {
