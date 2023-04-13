@@ -1,7 +1,7 @@
 {
   "name": "@shoaibfarooq3/ranchers-api-plugin-accounts",
   "description": "Accounts plugin for the Reaction API",
-  "version": "8.6.5",
+  "version": "8.6.6",
   "main": "index.js",
   "type": "module",
   "engines": {
