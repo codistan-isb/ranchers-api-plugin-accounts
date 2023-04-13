@@ -1,4 +1,5 @@
 import ReactionError from "@reactioncommerce/reaction-error";
+import { bcryptPassword } from "../../util/encryption.js";
 
 export default async function updatePasswordWithOTP(parent, { otp, newPassword }, context, info) {
     console.log(newPassword)
@@ -57,11 +58,19 @@ export default async function updatePasswordWithOTP(parent, { otp, newPassword }
     const currentTime = new Date().getTime();
     if (expirationTime > currentTime) {
         console.log('The expiration time is in the future.');
+        const hasedPass = await bcryptPassword(newPassword)
+        console.log("hased Pass:-", hasedPass)
         const userUpdate = await users.updateOne(
             { _id: UserID },
-            { $set: { "services.password": newPassword } }
+            { $set: { "services.password.bcrypt": hasedPass } }
         );
-        console.log(userUpdate)
+        console.log("user Update :- ", userUpdate.modifiedCount)
+        if (userUpdate.modifiedCount === 1) {
+            return true
+        }
+        else {
+            return false
+        }
     } else {
         throw new ReactionError("Invalid OTP", "OTP is expired.");
     }

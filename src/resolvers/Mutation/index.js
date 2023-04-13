@@ -46,7 +46,7 @@ export default {
     console.log(email)
     const { id } = context.user
     const data = await sendResetPasswordOTP(context, email, id);
-    console.log("Data: ", data)
+    // console.log("Data: ", data)
     if (data) {
       return true
     } else {
