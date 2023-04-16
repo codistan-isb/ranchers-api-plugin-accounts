@@ -503,7 +503,11 @@ extend type Mutation {
   updateUserRole(UserRole: UserRoleValue!, userId: String!): Boolean
 
   ResetPasswordWithOTP(email: String!): Boolean
-  updatePasswordWithOTP(otp: String!, newPassword: String!): Boolean
+  updatePasswordWithOTP(
+    otp: String!
+    newPassword: String!
+    email: String!
+  ): Boolean
 
   sendContactForm(
     name: String!

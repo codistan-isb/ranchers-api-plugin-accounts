@@ -17,12 +17,11 @@ import generateOTPForResetPassword from "./generateOTPForResetPassword.js";
 
 export default async function sendResetPasswordOTP(context, email, { bodyTemplate = "accounts/newEmail", userId }) {
     console.log("User ID", userId)
-    const { id } = context.user
-    if (userId === undefined) {
-        userId = id
-    }
+    // const { id } = context.user
+    // if (userId === undefined) {
+    //     userId = id
+    // }
     const { otp, expirationTime } = await generateOTPForResetPassword();
-    console.log("id real: ", id)
     console.log(`Your OTP is: ${otp}`);
     console.log(`Expires at: ${new Date(expirationTime).toLocaleTimeString()}`);
 
@@ -30,7 +29,9 @@ export default async function sendResetPasswordOTP(context, email, { bodyTemplat
         collections: { Accounts, Shops, users },
     } = context;
     const updateAccountResult = await users.updateOne(
-        { _id: userId },
+        // { _id: userId },
+        { "emails.address": email },
+
         { $set: { otp: otp, expirationTime: expirationTime } } // $set updates the fields with the new values
     );
     console.log("otp and expiry updated: ", updateAccountResult)
@@ -43,8 +44,10 @@ export default async function sendResetPasswordOTP(context, email, { bodyTemplat
     // }
 
     // const { email, token } = await startIdentityEmailVerification(context, { userId });
-
-    const account = await Accounts.findOne({ userId });
+    const UserData = await users.findOne({ "emails.address": email })
+    console.log("User Response :- ", UserData._id)
+    const account = await Accounts.findOne({ _id: UserData._id });
+    console.log("Account Resonse :-", account)
     if (!account) throw new ReactionError("not-found", "Account not found");
 
     // Account emails are always sent from the primary shop email and using primary shop

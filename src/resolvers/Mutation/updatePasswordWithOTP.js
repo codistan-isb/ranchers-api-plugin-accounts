@@ -1,22 +1,26 @@
 import ReactionError from "@reactioncommerce/reaction-error";
 import { bcryptPassword } from "../../util/encryption.js";
 
-export default async function updatePasswordWithOTP(parent, { otp, newPassword }, context, info) {
-    console.log(newPassword)
-    console.log(otp)
-    console.log("Login User Details: ", context.userId)
+export default async function updatePasswordWithOTP(parent, { otp, newPassword, email }, context, info) {
+    console.log("New Password:- ", newPassword)
+    console.log("otp:- ", otp)
+    // console.log("Login User Details: ", context.userId)
     const {
         users,
     } = context.collections;
     // console.log("context.collections", context.collections)
-    if (!context.userId) {
-        throw new ReactionError("access-denied", "Please Login First");
-    }
-    const { userId: UserID } = context
+    // if (!context.userId) {
+    //     throw new ReactionError("access-denied", "Please Login First");
+    // }
+    // const { userId: UserID } = context
     // if (!id) {
     //     id = "64195b188a75120149ddc0c0"
     // }
-    console.log(UserID);
+    // console.log(UserID);
+
+    const UserData = await users.findOne({ "emails.address": email })
+    console.log("User Response :- ", UserData._id)
+    const UserID = UserData._id
     const accountResp = await users.findOne({ _id: UserID });
     // const accountResp1 = await users.findOneAndUpdate({
     //     query: { _id: UserID },

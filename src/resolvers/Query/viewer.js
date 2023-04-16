@@ -12,7 +12,7 @@ import ReactionError from "@reactioncommerce/reaction-error";
  * @returns {Object} user account object
  */
 export default async function viewer(_, __, context, info) {
-  if (!context.accountId) throw new ReactionError("Access-denied", "Please Login First");
+  if (!context.accountId) throw new ReactionError("access-denied", "please login first");
   // console.log(context.queries.userAccount)
   // console.log()
   const Data_Viewer = await optimizeIdOnly(context.accountId, info, context.queries.userAccount)(context, context.accountId)

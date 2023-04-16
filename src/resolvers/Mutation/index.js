@@ -44,9 +44,13 @@ export default {
   updateUserRole,
   async ResetPasswordWithOTP(_, { email }, context) {
     console.log(email)
-    const { id } = context.user
-    const data = await sendResetPasswordOTP(context, email, id);
-    // console.log("Data: ", data)
+    const {
+      collections: { users },
+    } = context;
+    const UserData = await users.findOne({ "emails.address": email })
+    console.log("User Response :- ", UserData._id)
+    const data = await sendResetPasswordOTP(context, email, UserData._id);
+    console.log("Data: ", data)
     if (data) {
       return true
     } else {
