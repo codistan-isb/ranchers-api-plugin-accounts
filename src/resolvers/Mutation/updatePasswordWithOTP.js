@@ -19,9 +19,17 @@ export default async function updatePasswordWithOTP(parent, { otp, newPassword, 
     // console.log(UserID);
 
     const UserData = await users.findOne({ "emails.address": email })
+    if (!UserData) {
+        // The user document does not exist, throw an error or handle it as needed
+        throw new ReactionError("not-found", "Account not found");
+    }
     console.log("User Response :- ", UserData._id)
     const UserID = UserData._id
     const accountResp = await users.findOne({ _id: UserID });
+    if (!accountResp) {
+        // The user document does not exist, throw an error or handle it as needed
+        throw new ReactionError("not-found", "Account not found");
+    }
     // const accountResp1 = await users.findOneAndUpdate({
     //     query: { _id: UserID },
     //     update: {

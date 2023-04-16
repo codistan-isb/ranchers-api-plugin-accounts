@@ -45,6 +45,10 @@ export default async function sendResetPasswordOTP(context, email, { bodyTemplat
 
     // const { email, token } = await startIdentityEmailVerification(context, { userId });
     const UserData = await users.findOne({ "emails.address": email })
+    if (!UserData) {
+        // The user document does not exist, throw an error or handle it as needed
+        throw new ReactionError("not-found", "Account not found");
+    }
     console.log("User Response :- ", UserData._id)
     const account = await Accounts.findOne({ _id: UserData._id });
     console.log("Account Resonse :-", account)
