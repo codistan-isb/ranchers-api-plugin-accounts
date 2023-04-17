@@ -46,6 +46,6 @@ export default async function updatePasswordWithOTP(parent, { otp, newPassword, 
             throw new ReactionError("invalid-parameter", "OTP is expired.");
         }
     } else {
-        throw new ReactionError("invalid-parameter", "OTP not matched");
+        throw new ReactionError("invalid-parameter", "Invalid OTP");
     }
 }
