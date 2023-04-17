@@ -516,8 +516,13 @@ extend type Mutation {
     message: String!
   ): Boolean!
 }
+# type verifyOtpPayload{
+
+# }
 
 extend type Query {
+  verifyOtp(otp: String!, email: String!): Boolean
+
   "Returns the account with the provided ID"
   account("The account ID" id: ID!): Account
 

@@ -63,5 +63,6 @@ export default {
     }
   },
   sendContactForm,
-  updatePasswordWithOTP
+  updatePasswordWithOTP,
+
 };
