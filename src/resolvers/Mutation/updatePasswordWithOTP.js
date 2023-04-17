@@ -4,19 +4,9 @@ import { bcryptPassword } from "../../util/encryption.js";
 export default async function updatePasswordWithOTP(parent, { otp, newPassword, email }, context, info) {
     console.log("New Password:- ", newPassword)
     console.log("otp:- ", otp)
-    // console.log("Login User Details: ", context.userId)
     const {
         users,
     } = context.collections;
-    // console.log("context.collections", context.collections)
-    // if (!context.userId) {
-    //     throw new ReactionError("access-denied", "Please Login First");
-    // }
-    // const { userId: UserID } = context
-    // if (!id) {
-    //     id = "64195b188a75120149ddc0c0"
-    // }
-    // console.log(UserID);
 
     const UserData = await users.findOne({ "emails.address": email })
     if (!UserData) {
@@ -30,70 +20,32 @@ export default async function updatePasswordWithOTP(parent, { otp, newPassword, 
         // The user document does not exist, throw an error or handle it as needed
         throw new ReactionError("not-found", "Account not found");
     }
-    // const accountResp1 = await users.findOneAndUpdate({
-    //     query: { _id: UserID },
-    //     update: {
-    //         $pull: {
-    //             'services.password.reset': {
-    //                 token: otp,
-    //                 when: { $lt: new Date().getTime() },
-    //                 when: { $lt: new Date(accountResp.expirationTime).getTime() },
-    //             },
-    //         },
-    //         $set: {
-    //             'services.password.bcrypt': newPassword,
-    //         },
-    //     },
-    //     new: true,
-    // });
-    // const accountResp1 = await users.findOneAndUpdate(
-    //     { _id: UserID },
-    //     {
-    //         $pull: {
-    //             'services.password.reset': {
-    //                 token: otp,
-    //                 when: { $lt: new Date().getTime() },
-    //                 when: { $lt: new Date(accountResp.expirationTime).getTime() },
-    //             },
-    //         },
-    //         $set: {
-    //             'services.password.bcrypt': newPassword,
-    //         },
-    //     },
-    //     { new: true }
-    // );
     console.log("account Resp : ", accountResp)
     console.log("Expiry Time :- ", new Date(accountResp.expirationTime))
     console.log("Current TIme :- ", new Date())
     console.log("OTP :- ", accountResp.otp)
     const expirationTime = new Date(accountResp.expirationTime).getTime();
     const currentTime = new Date().getTime();
-    if (expirationTime > currentTime) {
-        console.log('The expiration time is in the future.');
-        const hasedPass = await bcryptPassword(newPassword)
-        console.log("hased Pass:-", hasedPass)
-        const userUpdate = await users.updateOne(
-            { _id: UserID },
-            { $set: { "services.password.bcrypt": hasedPass } }
-        );
-        console.log("user Update :- ", userUpdate.modifiedCount)
-        if (userUpdate.modifiedCount === 1) {
-            return true
-        }
-        else {
-            return false
+    if (accountResp.otp === otp) {
+        if (expirationTime > currentTime) {
+            console.log('The expiration time is in the future.');
+            const hasedPass = await bcryptPassword(newPassword)
+            console.log("hased Pass:-", hasedPass)
+            const userUpdate = await users.updateOne(
+                { _id: UserID },
+                { $set: { "services.password.bcrypt": hasedPass } }
+            );
+            console.log("user Update :- ", userUpdate.modifiedCount)
+            if (userUpdate.modifiedCount === 1) {
+                return true
+            }
+            else {
+                return false
+            }
+        } else {
+            throw new ReactionError("invalid-parameter", "OTP is expired.");
         }
     } else {
-        throw new ReactionError("Invalid OTP", "OTP is expired.");
+        throw new ReactionError("invalid-parameter", "OTP not matched");
     }
-
-
-
-
-
-
-    // if (accountResp) {
-    //     const resetObj = accountResp.services.password.reset.find((obj) => obj.token === otp && obj.when < Date.now());
-    //     console.log("reset Obj:- ", resetObj)
-    // }
 }

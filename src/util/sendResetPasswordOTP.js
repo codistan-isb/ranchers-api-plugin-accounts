@@ -17,10 +17,6 @@ import generateOTPForResetPassword from "./generateOTPForResetPassword.js";
 
 export default async function sendResetPasswordOTP(context, email, { bodyTemplate = "accounts/newEmail", userId }) {
     console.log("User ID", userId)
-    // const { id } = context.user
-    // if (userId === undefined) {
-    //     userId = id
-    // }
     const { otp, expirationTime } = await generateOTPForResetPassword();
     console.log(`Your OTP is: ${otp}`);
     console.log(`Expires at: ${new Date(expirationTime).toLocaleTimeString()}`);
@@ -36,14 +32,6 @@ export default async function sendResetPasswordOTP(context, email, { bodyTemplat
     );
     console.log("otp and expiry updated: ", updateAccountResult)
 
-    // mutations: { startIdentityEmailVerification }
-    //     mutations: { startIdentityEmailVerification }
-
-    // if (typeof startIdentityEmailVerification !== "function") {
-    //   throw new ReactionError("not-supported", "Password reset not supported");
-    // }
-
-    // const { email, token } = await startIdentityEmailVerification(context, { userId });
     const UserData = await users.findOne({ "emails.address": email })
     if (!UserData) {
         // The user document does not exist, throw an error or handle it as needed
@@ -78,16 +66,6 @@ export default async function sendResetPasswordOTP(context, email, { bodyTemplat
 
     };
     const language = (account.profile && account.profile.language) || shop.language;
-
-    // const EmailResponse = await context.mutations.sendEmail(context, {
-    //   data: dataForEmail,
-    //   fromShop: shop,
-    //   templateName: bodyTemplate,
-    //   language,
-    //   to: email
-    // });
-    // console.log("Email Response :-", EmailResponse)
-
 
     return context.mutations.sendEmail(context, {
         data: dataForEmail,
