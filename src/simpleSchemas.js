@@ -106,6 +106,11 @@ export const AccountProfileAddress = new SimpleSchema({
     label: "Address 1",
     type: String
   },
+  "label": {
+    type: String,
+    label: "Label",
+    optional: true
+  },
   "address2": {
     label: "Address 2",
     type: String,

@@ -36,6 +36,10 @@ input AddAccountAddressBookEntryInput {
   clientMutationId: String
 }
 
+extend input AddressInput {
+  label: String
+}
+
 "Defines the account which should be created"
 input CreateAccountInput {
   "Bio to display on profile"

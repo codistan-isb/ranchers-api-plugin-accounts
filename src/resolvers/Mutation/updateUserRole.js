@@ -1,3 +1,4 @@
+import ReactionError from "@reactioncommerce/reaction-error";
 export default async function updateUserRole(parent, args, context, info) {
     console.log(args)
     // console.log(context.user.UserRole)
@@ -7,10 +8,10 @@ export default async function updateUserRole(parent, args, context, info) {
         context.user === null ||
         context.user === ""
     ) {
-        throw new Error("Unauthorized access. Please login first");
+        throw new ReactionError("Unauthorized access. Please login first");
     }
     if (context.user.UserRole !== 'admin') {
-        throw new Error("Unauthorized");
+        throw new ReactionError("unauthorized", "Unauthorized");
     }
     else {
         try {
