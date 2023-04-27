@@ -1,7 +1,7 @@
 import sendResetPasswordOTP from "../../util/sendResetPasswordOTP";
 
 export default async function ResetPasswordWithOTP(_, { email }, context) {
-    console.log(email)
+    // console.log(email)
     const {
         collections: { users },
     } = context;
@@ -11,9 +11,9 @@ export default async function ResetPasswordWithOTP(_, { email }, context) {
         throw new ReactionError("not-found", "Account not found");
     }
 
-    console.log("User Response :- ", UserData._id)
+    // console.log("User Response :- ", UserData._id)
     const data = await sendResetPasswordOTP(context, email, UserData._id);
-    console.log("Data: ", data)
+    // console.log("Data: ", data)
     if (data) {
         return true
     } else {

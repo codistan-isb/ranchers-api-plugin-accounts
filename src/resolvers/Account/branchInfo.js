@@ -4,12 +4,12 @@ export default async function branchInfo(parent, args, context, info) {
     console.log(parent)
 
     if (parent.branches) {
-        console.log("Have Branch")
+        // console.log("Have Branch")
         const BranchID = parent.branches
-        console.log("BranchID", BranchID)
+        // console.log("BranchID", BranchID)
         const { BranchData } = context.collections;
         const branchDataResponse = await BranchData.find({ _id: { $in: BranchID.map(id => ObjectID.ObjectId(id)) } }).toArray();
-        console.log("Branch Data : ", branchDataResponse)
+        // console.log("Branch Data : ", branchDataResponse)
         // if (!branchDataResponse) {
         //     throw new ReactionError("Branch not found");
         // }

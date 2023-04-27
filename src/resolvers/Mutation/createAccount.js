@@ -13,7 +13,7 @@ import { decodeShopOpaqueId } from "../../xforms/id.js";
  * @returns {Object} - `object.status` of 200 on success or Error object on failure
  */
 export default async function createAccount(_, { input }, context) {
-  console.log(input)
+  // console.log(input)
   const { shopId, clientMutationId } = input;
   const decodedShopId = decodeShopOpaqueId(shopId);
 
