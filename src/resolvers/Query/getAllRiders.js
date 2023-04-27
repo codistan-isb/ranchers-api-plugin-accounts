@@ -49,7 +49,7 @@ export default async function getAllRiders(_, args, context, info) {
     }).toArray();
     console.log(RiderAccounts)
     if (RiderAccounts.length === 0) {
-        throw new ReactionError("User Not Found", "No online rider found");
+        throw new ReactionError("not-found", "No online rider found");
     }
     return RiderAccounts
     // } else {
