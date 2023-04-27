@@ -16,6 +16,6 @@ export default async function viewer(_, __, context, info) {
   // console.log(context.queries.userAccount)
   // console.log()
   const Data_Viewer = await optimizeIdOnly(context.accountId, info, context.queries.userAccount)(context, context.accountId)
-  console.log(Data_Viewer)
+  // console.log(Data_Viewer)
   return optimizeIdOnly(context.accountId, info, context.queries.userAccount)(context, context.accountId);
 }

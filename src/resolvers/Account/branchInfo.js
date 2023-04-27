@@ -1,7 +1,7 @@
 import ObjectID from "mongodb";
 import ReactionError from "@reactioncommerce/reaction-error";
 export default async function branchInfo(parent, args, context, info) {
-    console.log(parent)
+    // console.log(parent)
 
     if (parent.branches) {
         // console.log("Have Branch")

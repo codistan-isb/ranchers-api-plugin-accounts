@@ -16,10 +16,10 @@ import generateOTPForResetPassword from "./generateOTPForResetPassword.js";
  */
 
 export default async function sendResetPasswordOTP(context, email, { bodyTemplate = "accounts/newEmail", userId }) {
-    console.log("User ID", userId)
+    // console.log("User ID", userId)
     const { otp, expirationTime } = await generateOTPForResetPassword();
-    console.log(`Your OTP is: ${otp}`);
-    console.log(`Expires at: ${new Date(expirationTime).toLocaleTimeString()}`);
+    // console.log(`Your OTP is: ${otp}`);
+    // console.log(`Expires at: ${new Date(expirationTime).toLocaleTimeString()}`);
 
     const {
         collections: { Accounts, Shops, users },
@@ -30,16 +30,16 @@ export default async function sendResetPasswordOTP(context, email, { bodyTemplat
 
         { $set: { otp: otp, expirationTime: expirationTime } } // $set updates the fields with the new values
     );
-    console.log("otp and expiry updated: ", updateAccountResult)
+    // console.log("otp and expiry updated: ", updateAccountResult)
 
     const UserData = await users.findOne({ "emails.address": email })
     if (!UserData) {
         // The user document does not exist, throw an error or handle it as needed
         throw new ReactionError("not-found", "Account not found");
     }
-    console.log("User Response :- ", UserData._id)
+    // console.log("User Response :- ", UserData._id)
     const account = await Accounts.findOne({ _id: UserData._id });
-    console.log("Account Resonse :-", account)
+    // console.log("Account Resonse :-", account)
     if (!account) throw new ReactionError("not-found", "Account not found");
 
     // Account emails are always sent from the primary shop email and using primary shop

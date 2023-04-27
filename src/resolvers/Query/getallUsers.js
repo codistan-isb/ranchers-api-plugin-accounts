@@ -27,24 +27,24 @@ export default async function getallUsers(_, args, context, info) {
     ) {
         throw new ReactionError("Authentication Error", "Login First");
     }
-    console.log(context.user)
+    // console.log(context.user)
     const { Accounts } = context.collections;
     const CurrentUserRole = context.user.UserRole;
     const CurrentUserBranch = context.user.branches
-    console.log(CurrentUserRole)
+    // console.log(CurrentUserRole)
     if (CurrentUserRole === "dispatcher") {
         const queryData = await Accounts.find({
             UserRole: { $ne: "customer" },
             branches: CurrentUserBranch
         }).sort({ createdAt: -1 }).toArray();
-        console.log(queryData);
+        // console.log(queryData);
         return queryData
     }
     // const UserPermissionResp = canCreateUser(context.user.userRole.toLowerCase())
     // console.log(UserPermissionResp)
     if (CurrentUserRole === "admin") {
         const queryData = await Accounts.find({ UserRole: { $ne: "customer" } }).sort({ createdAt: -1 }).toArray();
-        console.log(queryData);
+        // console.log(queryData);
         return queryData
     }
     else {

@@ -1,6 +1,6 @@
 import ReactionError from "@reactioncommerce/reaction-error";
 export default async function updateUserRole(parent, args, context, info) {
-    console.log(args)
+    // console.log(args)
     // console.log(context.user.UserRole)
     // console.log(context.collections)
     if (
@@ -23,13 +23,13 @@ export default async function updateUserRole(parent, args, context, info) {
                 { _id: userId },
                 { $set: { UserRole: lowercaseUserRole } }
             );
-            console.log("update One result ", updateOneresult.ok)
+            // console.log("update One result ", updateOneresult.ok)
 
             const updateAccountsresult = await Accounts.findOneAndUpdate(
                 { _id: userId },
                 { $set: { UserRole: lowercaseUserRole } }
             );
-            console.log("update Accounts result ", updateAccountsresult.ok)
+            // console.log("update Accounts result ", updateAccountsresult.ok)
             if (updateOneresult.ok === 1 && updateAccountsresult.ok === 1) {
                 // const updatedUser = await users.findOne({ _id: userId });
                 // console.log(updatedUser)

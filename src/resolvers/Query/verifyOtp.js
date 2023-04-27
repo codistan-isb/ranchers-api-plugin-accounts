@@ -6,8 +6,8 @@ export default async function verifyOtp(
     context,
     info
 ) {
-    console.log("Input Otp:- ", otp);
-    console.log("Input Email:- ", email);
+    // console.log("Input Otp:- ", otp);
+    // console.log("Input Email:- ", email);
     const {
         collections: { users },
     } = context;
@@ -16,10 +16,10 @@ export default async function verifyOtp(
         // The user document does not exist, throw an error or handle it as needed
         throw new ReactionError("not-found", "Account not found");
     }
-    console.log("User Response :- ", UserData);
-    console.log("Expiry Time :- ", new Date(UserData.expirationTime));
-    console.log("Current Time :- ", new Date());
-    console.log("OTP :- ", UserData.otp);
+    // console.log("User Response :- ", UserData);
+    // console.log("Expiry Time :- ", new Date(UserData.expirationTime));
+    // console.log("Current Time :- ", new Date());
+    // console.log("OTP :- ", UserData.otp);
     const expirationTime = new Date(UserData.expirationTime).getTime();
     const currentTime = new Date().getTime();
     if (UserData.otp == otp) {
