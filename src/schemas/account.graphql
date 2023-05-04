@@ -139,6 +139,7 @@ input UpdateAccountInput {
 
   "URL of picture to display on profile"
   picture: String
+
   UserRole: UserRoleValue
   "Username"
   username: String
@@ -512,17 +513,7 @@ extend type Mutation {
     newPassword: String!
     email: String!
   ): Boolean
-
-  sendContactForm(
-    name: String!
-    email: String!
-    phoneNumber: String
-    message: String!
-  ): Boolean!
 }
-# type verifyOtpPayload{
-
-# }
 
 extend type Query {
   verifyOtp(otp: String!, email: String!): Boolean

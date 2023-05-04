@@ -20,7 +20,6 @@ import updateAdminUIAccess from "./updateAdminUIAccess.js";
 import updateGroupsForAccounts from "./updateGroupsForAccounts.js";
 import updateUserRole from "./updateUserRole.js";
 import sendResetPasswordOTP from "../../util/sendResetPasswordOTP.js";
-import sendContactForm from "./sendContactForm.js";
 import updatePasswordWithOTP from "./updatePasswordWithOTP.js";
 export default {
   addAccountAddressBookEntry,
@@ -62,7 +61,5 @@ export default {
       return false
     }
   },
-  sendContactForm,
   updatePasswordWithOTP,
-
 };
