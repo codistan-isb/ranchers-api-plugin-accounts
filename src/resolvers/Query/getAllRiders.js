@@ -34,12 +34,13 @@ export default async function getAllRiders(_, args, context, info) {
     let branchIds;
     // console.log("Current User Role : ", context.user)
     // console.log("Current User : ", context.user)
+
     if (branches) {
         branchIds = Array.isArray(branches) ? branches : [branches];
     } else {
         branchIds = Array.isArray(CurrentUserBranch) ? CurrentUserBranch : [CurrentUserBranch];
     }
-    // console.log("branchIds: ", branchIds)
+    // console.log("branchIds: ", branch Ids)
     // if (CurrentUserRole != 'rider') {
     // if (CurrentUserRole === "dispatcher" || CurrentUserRole === "admin") {
     const RiderAccounts = await Accounts.find({
@@ -52,7 +53,5 @@ export default async function getAllRiders(_, args, context, info) {
         throw new ReactionError("not-found", "No online rider found");
     }
     return RiderAccounts
-    // } else {
-    //     throw new Error("Unauthorized")
-    // }
+
 }
