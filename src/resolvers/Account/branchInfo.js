@@ -3,7 +3,8 @@ import ReactionError from "@reactioncommerce/reaction-error";
 export default async function branchInfo(parent, args, context, info) {
     // console.log(parent)
     // console.log("Have Branch", parent.UserRole)
-    if (parent.UserRole === 'dispatcher' || parent.UserRole === 'rider' ) {
+    if (parent) {
+       if (parent.UserRole === 'dispatcher' || parent.UserRole === 'rider' ) {
         if (parent.branches) {
             const BranchID = parent.branches
             if (BranchID) {
@@ -15,16 +16,16 @@ export default async function branchInfo(parent, args, context, info) {
             else {
                 return []
             }
-
         }
-        // else {
-        //     console.log("No Branch")
-        //     // return []
-        // }
     }
     else {
         return []
+    } 
     }
+    else{
+        return []
+    }
+    
 
 
 
