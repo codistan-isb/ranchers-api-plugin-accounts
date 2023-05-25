@@ -25,7 +25,7 @@ export default async function getAllRiders(_, args, context, info) {
     ) {
         throw new ReactionError("Access-denied", "Please Login First");
     }
-    console.log("Current User Role : ", context.user);
+    // console.log("Current User Role : ", context.user);
     let { branches } = args;
     const { id } = context.user;
     const { Accounts } = context.collections;
