@@ -21,7 +21,10 @@ import updateGroupsForAccounts from "./updateGroupsForAccounts.js";
 import updateUserRole from "./updateUserRole.js";
 import sendResetPasswordOTP from "../../util/sendResetPasswordOTP.js";
 import updatePasswordWithOTP from "./updatePasswordWithOTP.js";
+import verifyOtpViaEmail from "./verifyOtpViaEmail.js";
+
 export default {
+  verifyOtpViaEmail,
   addAccountAddressBookEntry,
   addAccountEmailRecord,
   addAccountToGroup,
@@ -47,7 +50,7 @@ export default {
     const {
       collections: { users },
     } = context;
-    const UserData = await users.findOne({ "emails.address": email })
+    const UserData = await users.findOne({ "emails.address": email });
     if (!UserData) {
       // The user document does not exist, throw an error or handle it as needed
       throw new ReactionError("not-found", "Account not found");
@@ -56,9 +59,9 @@ export default {
     const data = await sendResetPasswordOTP(context, email, UserData._id);
     // console.log("Data: ", data)
     if (data) {
-      return true
+      return true;
     } else {
-      return false
+      return false;
     }
   },
   updatePasswordWithOTP,

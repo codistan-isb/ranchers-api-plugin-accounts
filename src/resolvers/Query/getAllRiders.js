@@ -23,7 +23,7 @@ export default async function getAllRiders(_, args, context, info) {
     context.user === null ||
     context.user === ""
   ) {
-    throw new ReactionError("Access-denied", "Please Login First");
+    throw new ReactionError("access-denied", "Please Login First");
   }
   // console.log("Current User Role : ", context.user);
   let { branches } = args;

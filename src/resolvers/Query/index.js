@@ -7,7 +7,6 @@ import invitations from "./invitations.js";
 import viewer from "./viewer.js";
 import getallUsers from "./getallUsers.js";
 import getAllRiders from "./getAllRiders.js";
-import verifyOtp from "./verifyOtp.js";
 export default {
   account,
   accounts,
@@ -18,5 +17,4 @@ export default {
   viewer,
   getallUsers,
   getAllRiders,
-  verifyOtp
 };
