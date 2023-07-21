@@ -32,9 +32,9 @@ export default async function getAllRiders(_, args, context, info) {
   const CurrentUserRole = context.user.UserRole;
   const CurrentUserBranch = context.user.branches;
   let branchIds;
-  const thirtyMinutesInMilliseconds = 30 * 60 * 1000; // 5 minutes in milliseconds
+  const thirtyMinutesInMilliseconds = 30 * 60 * 1000; // 30 minutes in milliseconds
   const currentTime = new Date();
-  console.log("Current User Role : ", context.user);
+  // console.log("Current User Role : ", context.user);
   // console.log("Current User : ", context.user)
   if (CurrentUserRole === "admin") {
     const RiderAccounts = await Accounts.find({
@@ -44,11 +44,46 @@ export default async function getAllRiders(_, args, context, info) {
     if (RiderAccounts.length === 0) {
       throw new ReactionError("not-found", "No online rider found");
     }
-    console.log("RiderAccounts ", RiderAccounts);
+    console.log("currentTime ", currentTime);
+    // const dateTimeObj = new Date(currentTime);
+    // const milliseconds = dateTimeObj.getTime();
+    // console.log("thirtyMinutesInMilliseconds ", thirtyMinutesInMilliseconds);
+    // console.log("milliseconds ", milliseconds);
+
+    // const dateTimeObj1 = new Date(thirtyMinutesInMilliseconds);
+    // console.log("milliseconds ", dateTimeObj1);
+    // console.log("RiderAccounts ", RiderAccounts[0]);
     // const updatedRiderAccounts = RiderAccounts.map((rider) => {
+    //   // if (rider.updatedAt) {
+    //   //   console.log("Updated at time ", rider.updatedAt);
+    //   //   console.log("Updated at getTime() ", rider.updatedAt.getTime());
+    //   //   console.log("current time line ", new Date().getTime());
+    //   //   console.log(
+    //   //     "Diff ",
+    //   //     new Date().getTime() - rider.updatedAt.getTime() <
+    //   //       thirtyMinutesInMilliseconds
+    //   //   );
+
+    //   //   // console.log(
+    //   //   //   "rider ",
+    //   //   //   dateTimeObj.getTime() - rider.updatedAt.getTime()
+    //   //   // );
+    //   // }
+    //   // let currentTImeDiff = currentTime - rider.updatedAt;
+    //   // console.log("currentTImeDiff ", currentTImeDiff);
+    //   // console.log(
+    //   //   "currentTime - rider.updatedAt < thirtyMinutesInMilliseconds ",
+    //   //   currentTImeDiff < thirtyMinutesInMilliseconds
+    //   // );
+    //   console.log("rider.updatedAt.getTime() ", rider.updatedAt?.getTime());
+    //   console.log("new Date().getTime() ", new Date().getTime());
+    //   var timeValue = new Date().getTime() - rider.updatedAt?.getTime();
+    //   console.log("timeValue ", timeValue);
+    //   console.log("!rider.updatedAt ", !rider.updatedAt);
     //   if (
     //     !rider.updatedAt ||
-    //     currentTime - rider.updatedAt < thirtyMinutesInMilliseconds
+    //     timeValue < thirtyMinutesInMilliseconds
+    //     // currentTime - rider.updatedAt < thirtyMinutesInMilliseconds
     //   ) {
     //     rider.currentStatus = "offline";
     //   }
