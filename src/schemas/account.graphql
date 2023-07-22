@@ -579,8 +579,9 @@ extend type Query {
   viewer: Account
 
   "Returns the account of Users for the authenticated user"
-  getAllUsers: #  AccountConnection!
-  [Account]
+  getAllUsers:
+    AccountConnection!
+  # [Account]
 
   "Returns the account of Riders for the authenticated user"
   getAllRiders(branches: [String]): [Account]
