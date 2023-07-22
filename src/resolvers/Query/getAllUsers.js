@@ -39,34 +39,34 @@ export default async function getAllUsers(_, args, context, info) {
       branches: CurrentUserBranch,
     })
       .sort({ createdAt: -1 })
-    //   .toArray();
+      .toArray();
     // console.log("dispatcher queryData", queryData);
-    // return queryData;
-    return getPaginatedResponse(queryData, connectionArgs, {
-      includeHasNextPage: wasFieldRequested("pageInfo.hasNextPage", info),
-      includeHasPreviousPage: wasFieldRequested(
-        "pageInfo.hasPreviousPage",
-        info
-      ),
-      includeTotalCount: wasFieldRequested("totalCount", info),
-    });
+    return queryData;
+    // return getPaginatedResponse(queryData, connectionArgs, {
+    //   includeHasNextPage: wasFieldRequested("pageInfo.hasNextPage", info),
+    //   includeHasPreviousPage: wasFieldRequested(
+    //     "pageInfo.hasPreviousPage",
+    //     info
+    //   ),
+    //   includeTotalCount: wasFieldRequested("totalCount", info),
+    // });
   }
   // const UserPermissionResp = canCreateUser(context.user.userRole.toLowerCase())
   // console.log(UserPermissionResp)
   if (CurrentUserRole === "admin") {
     const queryData = await Accounts.find({ UserRole: { $ne: "customer" } })
       .sort({ createdAt: -1 })
-    //   .toArray();
+      .toArray();
     // console.log("admin queryData", queryData);
-    // return queryData;
-    return getPaginatedResponse(queryData, connectionArgs, {
-      includeHasNextPage: wasFieldRequested("pageInfo.hasNextPage", info),
-      includeHasPreviousPage: wasFieldRequested(
-        "pageInfo.hasPreviousPage",
-        info
-      ),
-      includeTotalCount: wasFieldRequested("totalCount", info),
-    });
+    return queryData;
+    // return getPaginatedResponse(queryData, connectionArgs, {
+    //   includeHasNextPage: wasFieldRequested("pageInfo.hasNextPage", info),
+    //   includeHasPreviousPage: wasFieldRequested(
+    //     "pageInfo.hasPreviousPage",
+    //     info
+    //   ),
+    //   includeTotalCount: wasFieldRequested("totalCount", info),
+    // });
   } else {
     throw new ReactionError("Authentication Error", "Login First");
   }
