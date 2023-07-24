@@ -16,7 +16,7 @@ import ReactionError from "@reactioncommerce/reaction-error";
  * @param {Object} info Info about the GraphQL request
  * @returns {Promise<Object>} Promise containing queried accounts
  */
-export default async function getAllUsers(_, args, context, info) {
+export default async function getAllPaginatedUsers(_, args, context, info) {
   // console.log(context.collections);
   // console.log(args);
   // console.log(context.user);
@@ -37,9 +37,8 @@ export default async function getAllUsers(_, args, context, info) {
     const queryData = await Accounts.find({
       UserRole: { $ne: "customer" },
       branches: CurrentUserBranch,
-    })
-      .sort({ createdAt: -1 })
-      // .toArray();
+    }).sort({ createdAt: -1 });
+    // .toArray();
     // console.log("dispatcher queryData", queryData);
     // return queryData;
     return getPaginatedResponse(queryData, connectionArgs, {
@@ -54,9 +53,10 @@ export default async function getAllUsers(_, args, context, info) {
   // const UserPermissionResp = canCreateUser(context.user.userRole.toLowerCase())
   // console.log(UserPermissionResp)
   if (CurrentUserRole === "admin") {
-    const queryData = await Accounts.find({ UserRole: { $ne: "customer" } })
-      .sort({ createdAt: -1 })
-      // .toArray();
+    const queryData = await Accounts.find({
+      UserRole: { $ne: "customer" },
+    }).sort({ createdAt: -1 });
+    // .toArray();
     // console.log("admin queryData", queryData);
     // return queryData;
     return getPaginatedResponse(queryData, connectionArgs, {
