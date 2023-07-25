@@ -22,8 +22,10 @@ import updateUserRole from "./updateUserRole.js";
 import sendResetPasswordOTP from "../../util/sendResetPasswordOTP.js";
 import updatePasswordWithOTP from "./updatePasswordWithOTP.js";
 import verifyOtpViaEmail from "./verifyOtpViaEmail.js";
+import updateRiderAccountPassword from "./updateRiderAccountPassword.js";
 
 export default {
+  updateRiderAccountPassword,
   verifyOtpViaEmail,
   addAccountAddressBookEntry,
   addAccountEmailRecord,

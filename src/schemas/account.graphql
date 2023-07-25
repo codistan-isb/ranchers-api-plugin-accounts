@@ -444,7 +444,12 @@ type UpdateGroupsForAccountsPayload {
   "The accounts that were modified"
   accounts: [Account]!
 }
-
+input updateRiderAccountInput {
+  newPassword: String!
+  passwordString: String!
+  riderId: ID!
+  riderEmail: String!
+}
 extend type Mutation {
   "Add a new address to the `addressBook` field for an account"
   addAccountAddressBookEntry(
@@ -515,6 +520,7 @@ extend type Mutation {
   ): Boolean
 
   verifyOtpViaEmail(otp: String!, email: String!): Boolean
+  updateRiderAccountPassword(input: updateRiderAccountInput): Boolean
 }
 
 extend type Query {
@@ -579,7 +585,7 @@ extend type Query {
   viewer: Account
 
   "Returns the account of Users for the authenticated user"
-  getAllPaginatedUsers (
+  getAllPaginatedUsers(
     "Return only results that come after this cursor. Use this with `first` to specify the number of results to return."
     after: ConnectionCursor
 
@@ -602,7 +608,7 @@ extend type Query {
     sortBy: AccountSortByField = createdAt
   ): AccountConnection!
   # [Account]
- getallUsers: [Account]
+  getallUsers: [Account]
   "Returns the account of Riders for the authenticated user"
   getAllRiders(branches: [String]): [Account]
 
