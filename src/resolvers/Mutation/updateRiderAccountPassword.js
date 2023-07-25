@@ -19,9 +19,14 @@ export default async function updateRiderAccountPassword(
   ) {
     throw new ReactionError("access-denied", "please login first");
   }
+  console.log("context user ", context.user.branches);
+  const branchIdsToCheck = context?.user?.branches; // Replace with the array of branch IDs you want to check
+
   const { newPassword, passwordString, riderId, riderEmail } = input;
   const now = new Date();
-  const UserData = await users.findOne({ "emails.address": riderEmail });
+  // const UserData = await users.findOne({ "emails.address": riderEmail });
+  const UserData = await Accounts.findOne({ "emails.address": riderEmail ,"branches": { $in: branchIdsToCheck } });
+
   if (!UserData) {
     // The user document does not exist, throw an error or handle it as needed
     throw new ReactionError("not-found", "Account not found");
@@ -30,6 +35,7 @@ export default async function updateRiderAccountPassword(
   const UserID = UserData._id;
   const hashedPass = await bcryptPassword(newPassword);
   console.log("hashedPass :- ", hashedPass);
+
   const userUpdate = await users.updateOne(
     { _id: UserID },
     { $set: { "services.password.bcrypt": hashedPass, updatedAt: now } }
