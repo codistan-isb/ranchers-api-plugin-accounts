@@ -17,9 +17,7 @@ import ReactionError from "@reactioncommerce/reaction-error";
  * @returns {Promise<Object>} Promise containing queried accounts
  */
 export default async function getAllPaginatedUsers(_, args, context, info) {
-  // console.log(context.collections);
-  // console.log(args);
-  // console.log(context.user);
+
   const { ...connectionArgs } = args;
   if (
     context.user === undefined ||
@@ -35,11 +33,18 @@ export default async function getAllPaginatedUsers(_, args, context, info) {
   // console.log(CurrentUserRole)
   if (CurrentUserRole === "dispatcher") {
     const queryData = await Accounts.find({
-      UserRole: { $ne: "customer" },
+      // UserRole: { $ne: "customer" },
+      UserRole: { $ne: "customer", $exists: true },
       branches: CurrentUserBranch,
     }).sort({ createdAt: -1 });
-    // .toArray();
-    // console.log("dispatcher queryData", queryData);
+    // console.log(
+    //   "dispatcher queryData",
+    //   await Accounts.find({
+    //     UserRole: { $ne: "customer", $exists: true },
+    //   })
+    //     .sort({ createdAt: -1 })
+    //     .toArray()
+    // );
     // return queryData;
     return getPaginatedResponse(queryData, connectionArgs, {
       includeHasNextPage: wasFieldRequested("pageInfo.hasNextPage", info),
@@ -54,10 +59,19 @@ export default async function getAllPaginatedUsers(_, args, context, info) {
   // console.log(UserPermissionResp)
   if (CurrentUserRole === "admin") {
     const queryData = await Accounts.find({
-      UserRole: { $ne: "customer" },
+      // UserRole: { $ne: "customer" },
+      UserRole: { $ne: "customer", $exists: true },
     }).sort({ createdAt: -1 });
     // .toArray();
-    // console.log("admin queryData", queryData);
+    // console.log(
+    //   "admin queryData",
+    //   await Accounts.find({
+    //     // UserRole: { $ne: "customer" },
+    //     UserRole: { $ne: "customer", $exists: true },
+    //   })
+    //     .sort({ createdAt: -1 })
+    //     .toArray()
+    // );
     // return queryData;
     return getPaginatedResponse(queryData, connectionArgs, {
       includeHasNextPage: wasFieldRequested("pageInfo.hasNextPage", info),
