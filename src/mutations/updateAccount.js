@@ -207,14 +207,8 @@ export default async function updateAccount(context, input) {
     lastName === null
   ) {
     const updates = {};
-    const updatedFields = [];
-    updates["profile.firstName"] = firstName;
     updates["firstName"] = firstName;
-    updatedFields.push("firstName");
-    updates["profile.lastName"] = lastName;
     updates["lastName"] = lastName;
-
-    updatedFields.push("lastName");
     const modifier = {
       $set: {
         ...updates,
