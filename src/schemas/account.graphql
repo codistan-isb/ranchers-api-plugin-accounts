@@ -586,6 +586,8 @@ extend type Query {
 
   "Returns the account of Users for the authenticated user"
   getAllPaginatedUsers(
+    "Search Query"
+    searchQuery: String
     "Return only results that come after this cursor. Use this with `first` to specify the number of results to return."
     after: ConnectionCursor
 

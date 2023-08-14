@@ -17,35 +17,26 @@ import ReactionError from "@reactioncommerce/reaction-error";
  * @returns {Promise<Object>} Promise containing queried accounts
  */
 export default async function getAllPaginatedUsers(_, args, context, info) {
-
-  const { ...connectionArgs } = args;
+  const { searchQuery, ...connectionArgs } = args;
   if (
     context.user === undefined ||
     context.user === null ||
     context.user === ""
   ) {
-    throw new ReactionError("Authentication Error", "Login First");
+    throw new ReactionError("access-denied", "Please Login First");
   }
-  // console.log(context.user)
   const { Accounts } = context.collections;
   const CurrentUserRole = context.user.UserRole;
   const CurrentUserBranch = context.user.branches;
-  // console.log(CurrentUserRole)
+  let matchStage = [];
+  if (CurrentUserRole === "dispatcher") {
+    matchStage.push({ riderID: riderID });
+  }
   if (CurrentUserRole === "dispatcher") {
     const queryData = await Accounts.find({
-      // UserRole: { $ne: "customer" },
       UserRole: { $ne: "customer", $exists: true },
       branches: CurrentUserBranch,
     }).sort({ createdAt: -1 });
-    // console.log(
-    //   "dispatcher queryData",
-    //   await Accounts.find({
-    //     UserRole: { $ne: "customer", $exists: true },
-    //   })
-    //     .sort({ createdAt: -1 })
-    //     .toArray()
-    // );
-    // return queryData;
     return getPaginatedResponse(queryData, connectionArgs, {
       includeHasNextPage: wasFieldRequested("pageInfo.hasNextPage", info),
       includeHasPreviousPage: wasFieldRequested(
@@ -55,24 +46,11 @@ export default async function getAllPaginatedUsers(_, args, context, info) {
       includeTotalCount: wasFieldRequested("totalCount", info),
     });
   }
-  // const UserPermissionResp = canCreateUser(context.user.userRole.toLowerCase())
-  // console.log(UserPermissionResp)
   if (CurrentUserRole === "admin") {
     const queryData = await Accounts.find({
-      // UserRole: { $ne: "customer" },
       UserRole: { $ne: "customer", $exists: true },
     }).sort({ createdAt: -1 });
-    // .toArray();
-    // console.log(
-    //   "admin queryData",
-    //   await Accounts.find({
-    //     // UserRole: { $ne: "customer" },
-    //     UserRole: { $ne: "customer", $exists: true },
-    //   })
-    //     .sort({ createdAt: -1 })
-    //     .toArray()
-    // );
-    // return queryData;
+
     return getPaginatedResponse(queryData, connectionArgs, {
       includeHasNextPage: wasFieldRequested("pageInfo.hasNextPage", info),
       includeHasPreviousPage: wasFieldRequested(
@@ -82,21 +60,6 @@ export default async function getAllPaginatedUsers(_, args, context, info) {
       includeTotalCount: wasFieldRequested("totalCount", info),
     });
   } else {
-    throw new ReactionError("Authentication Error", "Login First");
+    throw new ReactionError("access-denied", "User not allowed");
   }
-
-  // const { groupIds: opaqueGroupIds, notInAnyGroups, ...connectionArgs } = args;
-
-  // let groupIds;
-  // if (opaqueGroupIds) {
-  //     groupIds = opaqueGroupIds.map((opaqueGroupId) => decodeGroupOpaqueId(opaqueGroupId)); { groupIds, notInAnyGroups }
-  // }
-
-  // const query = await context.queries.accounts(context);
-  // console.log(query)
-  // return getPaginatedResponse(query, connectionArgs, {
-  //     includeHasNextPage: wasFieldRequested("pageInfo.hasNextPage", info),
-  //     includeHasPreviousPage: wasFieldRequested("pageInfo.hasPreviousPage", info),
-  //     includeTotalCount: wasFieldRequested("totalCount", info)
-  // });
 }

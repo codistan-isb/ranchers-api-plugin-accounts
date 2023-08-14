@@ -5,15 +5,13 @@ import { decodeGroupOpaqueId } from "../../xforms/id.js";
 import ReactionError from "@reactioncommerce/reaction-error";
 
 export default async function getallUsers(_, args, context, info) {
-  // console.log(context.collections);
-  // console.log(args);
-  // console.log(context.user);
+ 
   if (
     context.user === undefined ||
     context.user === null ||
     context.user === ""
   ) {
-    throw new ReactionError("Authentication Error", "Login First");
+    throw new ReactionError("access-denied", "Please Login First");
   }
   // console.log(context.user)
   const { Accounts } = context.collections;
@@ -35,6 +33,6 @@ export default async function getallUsers(_, args, context, info) {
       .toArray();
     return queryData;
   } else {
-    throw new ReactionError("Authentication Error", "Login First");
+    throw new ReactionError("access-denied", "User not allowed");
   }
 }
