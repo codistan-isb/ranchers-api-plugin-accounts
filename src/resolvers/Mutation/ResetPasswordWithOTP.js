@@ -1,6 +1,6 @@
 import sendResetPasswordOTP from "../../util/sendResetPasswordOTP";
 
-export default async function ResetPasswordWithOTP(_, { email }, context) {
+export default async function verificationWithOTP(_, { email }, context) {
     // console.log(email)
     const {
         collections: { users },

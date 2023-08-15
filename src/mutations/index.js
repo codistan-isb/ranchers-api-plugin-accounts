@@ -20,6 +20,7 @@ import updateAccountGroup from "./updateAccountGroup.js";
 import updateAdminUIAccess from "./updateAdminUIAccess.js";
 import updateGroupsForAccounts from "./updateGroupsForAccounts.js";
 import verifyOtpViaEmail from "./verifyOtpViaEmail.js";
+import verifyEmailVerificationViaOTP from "./verifyEmailVerificationViaOTP.js";
 export default {
   verifyOtpViaEmail,
   addressBookAdd,
@@ -43,4 +44,5 @@ export default {
   updateAccountGroup,
   updateAdminUIAccess,
   updateGroupsForAccounts,
+  verifyEmailVerificationViaOTP,
 };

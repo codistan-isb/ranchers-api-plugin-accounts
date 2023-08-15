@@ -23,6 +23,7 @@ import sendResetPasswordOTP from "../../util/sendResetPasswordOTP.js";
 import updatePasswordWithOTP from "./updatePasswordWithOTP.js";
 import verifyOtpViaEmail from "./verifyOtpViaEmail.js";
 import updateRiderAccountPassword from "./updateRiderAccountPassword.js";
+import verifyEmailVerificationViaOTP from "./verifyEmailVerificationViaOTP.js";
 
 export default {
   updateRiderAccountPassword,
@@ -47,7 +48,7 @@ export default {
   updateAdminUIAccess,
   updateGroupsForAccounts,
   updateUserRole,
-  async ResetPasswordWithOTP(_, { email }, context) {
+  async verificationWithOTP(_, { email }, context) {
     // console.log(email)
     const {
       collections: { users },
@@ -67,4 +68,5 @@ export default {
     }
   },
   updatePasswordWithOTP,
+  verifyEmailVerificationViaOTP,
 };

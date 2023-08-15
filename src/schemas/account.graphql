@@ -450,6 +450,10 @@ input updateRiderAccountInput {
   riderId: ID!
   riderEmail: String!
 }
+input verifyEmailVerificationViaOTPInput {
+  email: String!
+  otp: String!
+}
 extend type Mutation {
   "Add a new address to the `addressBook` field for an account"
   addAccountAddressBookEntry(
@@ -512,15 +516,17 @@ extend type Mutation {
   ): UpdateGroupsForAccountsPayload
   updateUserRole(UserRole: UserRoleValue!, userId: String!): Boolean
 
-  ResetPasswordWithOTP(email: String!): Boolean
+  verificationWithOTP(email: String!): Boolean
   updatePasswordWithOTP(
     otp: String!
     newPassword: String!
     email: String!
   ): Boolean
-
   verifyOtpViaEmail(otp: String!, email: String!): Boolean
   updateRiderAccountPassword(input: updateRiderAccountInput): Boolean
+  verifyEmailVerificationViaOTP(
+    input: verifyEmailVerificationViaOTPInput
+  ): Boolean
 }
 
 extend type Query {
