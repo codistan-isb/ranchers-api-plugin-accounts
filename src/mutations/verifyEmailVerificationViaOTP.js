@@ -24,6 +24,11 @@ export default async function verifyEmailVerificationViaOTP(context, input) {
         { _id: UserID },
         { $set: { "emails.0.verified": true } }
       );
+      if (accountUpdate) {
+        return true;
+      } else {
+        return false;
+      }
       //   console.log("accountUpdate ", accountUpdate);
     } else {
       throw new ReactionError("invalid-parameter", "OTP is expired.");

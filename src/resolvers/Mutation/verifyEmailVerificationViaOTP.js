@@ -19,4 +19,5 @@ export default async function verifyEmailVerificationViaOTP(
     context,
     input
   );
+  return true;
 }
