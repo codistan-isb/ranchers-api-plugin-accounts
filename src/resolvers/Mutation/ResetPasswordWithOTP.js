@@ -10,8 +10,6 @@ export default async function verificationWithOTP(_, { email }, context) {
         // The user document does not exist, throw an error or handle it as needed
         throw new ReactionError("not-found", "Account not found");
     }
-
-    // console.log("User Response :- ", UserData._id)
     const data = await sendResetPasswordOTP(context, email, UserData._id);
     // console.log("Data: ", data)
     if (data) {

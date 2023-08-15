@@ -28,10 +28,10 @@ export default async function getAllPaginatedUsers(_, args, context, info) {
   const { Accounts } = context.collections;
   const CurrentUserRole = context.user.UserRole;
   const CurrentUserBranch = context.user.branches;
-  let matchStage = [];
-  if (CurrentUserRole === "dispatcher") {
-    matchStage.push({ riderID: riderID });
-  }
+  // let matchStage = [];
+  // if (CurrentUserRole === "dispatcher") {
+  //   matchStage.push({ riderID: riderID });
+  // }
   if (CurrentUserRole === "dispatcher") {
     const queryData = await Accounts.find({
       UserRole: { $ne: "customer", $exists: true },
