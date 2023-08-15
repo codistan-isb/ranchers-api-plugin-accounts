@@ -515,7 +515,7 @@ extend type Mutation {
     input: UpdateGroupsForAccountsInput!
   ): UpdateGroupsForAccountsPayload
   updateUserRole(UserRole: UserRoleValue!, userId: String!): Boolean
-
+  ResetPasswordWithOTP(email: String!): Boolean
   verificationWithOTP(email: String!): Boolean
   updatePasswordWithOTP(
     otp: String!
