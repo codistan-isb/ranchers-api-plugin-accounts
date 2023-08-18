@@ -15,7 +15,7 @@ import generateOTPForResetPassword from "./generateOTPForResetPassword.js";
  * @returns {Job} - returns a sendEmail Job instance
  */
 
-export default async function sendResetPasswordOTP(context, email) {
+export default async function sendOTPToVerifyEmailOTP(context, email) {
   // console.log("User ID", userId){ bodyTemplate = "accounts/newEmail", userId }
   const { otp, expirationTime } = await generateOTPForResetPassword();
   // console.log(`Your OTP is: ${otp}`);
