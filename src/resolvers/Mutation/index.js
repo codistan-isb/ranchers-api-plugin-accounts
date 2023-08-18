@@ -24,8 +24,9 @@ import updatePasswordWithOTP from "./updatePasswordWithOTP.js";
 import verifyOtpViaEmail from "./verifyOtpViaEmail.js";
 import updateRiderAccountPassword from "./updateRiderAccountPassword.js";
 import verifyEmailVerificationViaOTP from "./verifyEmailVerificationViaOTP.js";
-
+import verifyAccountEmail from "./verifyAccountEmail.js";
 export default {
+  verifyAccountEmail,
   updateRiderAccountPassword,
   verifyOtpViaEmail,
   addAccountAddressBookEntry,

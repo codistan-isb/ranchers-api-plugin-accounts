@@ -21,7 +21,9 @@ import updateAdminUIAccess from "./updateAdminUIAccess.js";
 import updateGroupsForAccounts from "./updateGroupsForAccounts.js";
 import verifyOtpViaEmail from "./verifyOtpViaEmail.js";
 import verifyEmailVerificationViaOTP from "./verifyEmailVerificationViaOTP.js";
+import verifyAccountEmail from "./verifyAccountEmail.js";
 export default {
+  verifyAccountEmail,
   verifyOtpViaEmail,
   addressBookAdd,
   addAccountEmailRecord,

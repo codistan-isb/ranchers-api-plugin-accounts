@@ -1,0 +1,8 @@
+type UpdateResult {
+  success: Boolean!
+  message: String
+}
+
+extend type Mutation {
+  verifyAccountEmail: UpdateResult!
+}
