@@ -17,6 +17,7 @@ import ReactionError from "@reactioncommerce/reaction-error";
  * @returns {Promise<Object>} Promise containing queried accounts
  */
 export default async function getAllPaginatedUsers(_, args, context, info) {
+  let { authToken, userId, collections } = context;
   const { searchQuery, ...connectionArgs } = args;
   if (
     context.user === undefined ||
@@ -25,15 +26,62 @@ export default async function getAllPaginatedUsers(_, args, context, info) {
   ) {
     throw new ReactionError("access-denied", "Please Login First");
   }
-  const { Accounts } = context.collections;
+  const { Accounts } = collections;
   const CurrentUserRole = context.user.UserRole;
   const CurrentUserBranch = context.user.branches;
+  let matchStage = [];
 
   if (CurrentUserRole === "dispatcher") {
-    const queryData = await Accounts.find({
-      UserRole: { $ne: "customer", $exists: true },
-      branches: CurrentUserBranch,
-    }).sort({ createdAt: -1 });
+    // console.log("searchQuery dispatcher ", searchQuery);
+    // console.log("searchQuery admin ", searchQuery);
+
+    matchStage.push({ UserRole: { $ne: "customer", $exists: true } });
+    if (searchQuery) {
+      const matchingRiderIDs = await collections.Accounts.distinct("_id", {
+        $or: [
+          {
+            "emails.0.address": {
+              $regex: new RegExp(searchQuery, "i"),
+            },
+          },
+          {
+            "profile.firstName": {
+              $regex: new RegExp(searchQuery, "i"),
+            },
+          },
+          {
+            "profile.lastName": {
+              $regex: new RegExp(searchQuery, "i"),
+            },
+          },
+          {
+            "profile.phone": {
+              $regex: new RegExp(searchQuery, "i"),
+            },
+          },
+          {
+            fullName: {
+              $regex: new RegExp(searchQuery, "i"),
+            },
+          },
+        ],
+      });
+      const matchingIDs = [...matchingRiderIDs];
+      // console.log("matchingRiderIDs", matchingRiderIDs);
+      matchStage.push({
+        // riderID: "64195b188a75120149ddc0c0",
+        _id: { $in: matchingIDs },
+        // riderID: { $in: matchingIDs },
+      });
+    }
+    // console.log("matchStage ", matchStage);
+    const queryData = await Accounts.find({ $and: matchStage }).sort({
+      createdAt: -1,
+    });
+    // const queryData = await Accounts.find({
+    //   UserRole: { $ne: "customer", $exists: true },
+    //   branches: CurrentUserBranch,
+    // }).sort({ createdAt: -1 });
     return getPaginatedResponse(queryData, connectionArgs, {
       includeHasNextPage: wasFieldRequested("pageInfo.hasNextPage", info),
       includeHasPreviousPage: wasFieldRequested(
@@ -44,9 +92,55 @@ export default async function getAllPaginatedUsers(_, args, context, info) {
     });
   }
   if (CurrentUserRole === "admin") {
-    const queryData = await Accounts.find({
-      UserRole: { $ne: "customer", $exists: true },
-    }).sort({ createdAt: -1 });
+    // console.log("searchQuery admin ", searchQuery);
+
+    matchStage.push({ UserRole: { $ne: "customer", $exists: true } });
+
+    if (searchQuery) {
+      const matchingRiderIDs = await collections.Accounts.distinct("_id", {
+        $or: [
+          {
+            "emails.0.address": {
+              $regex: new RegExp(searchQuery, "i"),
+            },
+          },
+          {
+            "profile.firstName": {
+              $regex: new RegExp(searchQuery, "i"),
+            },
+          },
+          {
+            "profile.lastName": {
+              $regex: new RegExp(searchQuery, "i"),
+            },
+          },
+          {
+            "profile.phone": {
+              $regex: new RegExp(searchQuery, "i"),
+            },
+          },
+          {
+            fullName: {
+              $regex: new RegExp(searchQuery, "i"),
+            },
+          },
+        ],
+      });
+      const matchingIDs = [...matchingRiderIDs];
+      // console.log("matchingRiderIDs", matchingRiderIDs);
+      matchStage.push({
+        // riderID: "64195b188a75120149ddc0c0",
+        _id: { $in: matchingIDs },
+        // riderID: { $in: matchingIDs },
+      });
+    }
+    // console.log("matchStage ", matchStage);
+    const queryData = await Accounts.find({ $and: matchStage }).sort({
+      createdAt: -1,
+    });
+    // const queryData = await Accounts.find({
+    //   UserRole: { $ne: "customer", $exists: true },
+    // }).sort({ createdAt: -1 });
 
     return getPaginatedResponse(queryData, connectionArgs, {
       includeHasNextPage: wasFieldRequested("pageInfo.hasNextPage", info),
