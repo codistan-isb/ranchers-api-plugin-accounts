@@ -15,7 +15,11 @@ import generateOTPForResetPassword from "./generateOTPForResetPassword.js";
  * @returns {Job} - returns a sendEmail Job instance
  */
 
-export default async function sendResetPasswordOTP(context, email) {
+export default async function sendResetPasswordOTP(
+  context,
+  email,
+  { bodyTemplate = "accounts/newEmail", userId }
+) {
   // console.log("User ID", userId){ bodyTemplate = "accounts/newEmail", userId }
   const { otp, expirationTime } = await generateOTPForResetPassword();
   // console.log(`Your OTP is: ${otp}`);
@@ -30,7 +34,7 @@ export default async function sendResetPasswordOTP(context, email) {
 
     { $set: { otp: otp, expirationTime: expirationTime } } // $set updates the fields with the new values
   );
-  // console.log("otp and expiry updated: ", updateAccountResult)
+  console.log("otp and expiry updated: ", updateAccountResult);
 
   const UserData = await users.findOne({ "emails.address": email });
   if (!UserData) {
@@ -69,11 +73,21 @@ export default async function sendResetPasswordOTP(context, email) {
   };
   const language =
     (account.profile && account.profile.language) || shop.language;
-
+  // console.log("dataForEmail ", dataForEmail);
+  // console.log(
+  //   "EMail ",
+  //   await context.mutations.sendEmail(context, {
+  //     data: dataForEmail,
+  //     fromShop: shop,
+  //     templateName: bodyTemplate,
+  //     language,
+  //     to: email,
+  //   })
+  // );
   return context.mutations.sendEmail(context, {
     data: dataForEmail,
     fromShop: shop,
-    // templateName: "accounts/newEmail",
+    templateName: bodyTemplate,
     language,
     to: email,
   });
