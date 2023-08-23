@@ -8,7 +8,9 @@ import viewer from "./viewer.js";
 import getAllPaginatedUsers from "./getAllPaginatedUsers.js";
 import getAllRiders from "./getAllRiders.js";
 import getallUsers from "./getallUsers.js";
+import getAllCustomers from "./getAllCustomers.js";
 export default {
+  getAllCustomers,
   account,
   accounts,
   customers,

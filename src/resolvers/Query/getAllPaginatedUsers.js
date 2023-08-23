@@ -35,7 +35,10 @@ export default async function getAllPaginatedUsers(_, args, context, info) {
     // console.log("searchQuery dispatcher ", searchQuery);
     // console.log("searchQuery admin ", searchQuery);
 
-    matchStage.push({ UserRole: { $ne: "customer", $exists: true } });
+    matchStage.push({
+      UserRole: { $ne: "customer", $exists: true },
+      branches: CurrentUserBranch,
+    });
     if (searchQuery) {
       const matchingRiderIDs = await collections.Accounts.distinct("_id", {
         $or: [

@@ -1,7 +1,7 @@
 {
   "name": "@codistan-isb/ranchers-api-plugin-accounts",
   "description": "Accounts plugin for the Reaction API",
-  "version": "9.2.2",
+  "version": "9.2.3",
   "main": "index.js",
   "type": "module",
   "engines": {

@@ -7,8 +7,10 @@ import groupsByAccount from "./groupsByAccount.js";
 import groupsById from "./groupsById.js";
 import invitations from "./invitations.js";
 import userAccount from "./userAccount.js";
+import getAllCustomers from "./getAllCustomers.js";
 
 export default {
+  getAllCustomers,
   accountByUserId,
   accounts,
   customers,
@@ -17,5 +19,5 @@ export default {
   groupsByAccount,
   groupsById,
   invitations,
-  userAccount
+  userAccount,
 };

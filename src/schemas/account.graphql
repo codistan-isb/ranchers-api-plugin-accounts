@@ -23,6 +23,7 @@ enum UserRoleValue {
   admin
   dispatcher
   rider
+  customer
 }
 "Defines a new Address and the account to which it should be added"
 input AddAccountAddressBookEntryInput {
@@ -312,6 +313,7 @@ type BasicAccount implements Node {
 
   "List of shop Ids"
   adminUIShopIds: [String]
+
   UserRole: UserRoleValue
 }
 
@@ -592,6 +594,30 @@ extend type Query {
 
   "Returns the account of Users for the authenticated user"
   getAllPaginatedUsers(
+    "Search Query"
+    searchQuery: String
+    "Return only results that come after this cursor. Use this with `first` to specify the number of results to return."
+    after: ConnectionCursor
+
+    "Return only results that come before this cursor. Use this with `last` to specify the number of results to return."
+    before: ConnectionCursor
+
+    "Return at most this many results. This parameter may be used with either `after` or `offset` parameters."
+    first: ConnectionLimitInt
+
+    "Return at most this many results. This parameter may be used with the `before` parameter."
+    last: ConnectionLimitInt
+
+    "Return only results that come after the Nth result. This parameter may be used with the `first` parameter."
+    offset: Int
+
+    "Return results sorted in this order"
+    sortOrder: SortOrder = asc
+
+    "By default, groups are sorted by when they were created, oldest first. Set this to sort by one of the other allowed fields"
+    sortBy: AccountSortByField = createdAt
+  ): AccountConnection!
+  getAllCustomers(
     "Search Query"
     searchQuery: String
     "Return only results that come after this cursor. Use this with `first` to specify the number of results to return."
