@@ -5,10 +5,10 @@ import { decodeGroupOpaqueId } from "../../xforms/id.js";
 import ReactionError from "@reactioncommerce/reaction-error";
 
 export default async function getAllCustomers(_, args, context, info) {
-  let { collections } = context;
+  let { collections, authToken, userId } = context;
   const { searchQuery, ...connectionArgs } = args;
-  const CurrentUserRole = context.user.UserRole;
-  console.log("CurrentUserRole ", CurrentUserRole);
+
+  // console.log("CurrentUserRole ", CurrentUserRole);
   if (
     context.user === undefined ||
     context.user === null ||
@@ -16,9 +16,11 @@ export default async function getAllCustomers(_, args, context, info) {
   ) {
     throw new ReactionError("access-denied", "Please Login First");
   }
+  const CurrentUserRole = context?.user?.UserRole;
   if (CurrentUserRole === "rider") {
-    throw new ReactionError("access-denied", "Access Denied");
+    throw new ReactionError("access-denied", "Un authorized user");
   }
+
   const query = await context.queries.getAllCustomers(context, args);
 
   return getPaginatedResponse(query, connectionArgs, {
