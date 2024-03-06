@@ -128,6 +128,7 @@ export const AccountProfileAddress = new SimpleSchema({
   "phone": {
     type: String,
     label: "Phone",
+    optional: true
   },
   "region": {
     label: "State/Province/Region",
@@ -241,6 +242,7 @@ export const Profile = new SimpleSchema({
   "phone": {
     type: String,
     label: "Phone",
+    optional: true
   },
   "invited": {
     type: Boolean,
@@ -402,7 +404,8 @@ export const Account = new SimpleSchema({
   },
   "phone": {
     type: String,
-    label: "Phone"
+    label: "Phone",
+    optional: true
   }
 });
 
